@@ -29,6 +29,12 @@ const userSchema = new mongoose.Schema({
       }
     }
   },
+  // course code form admin
+  professor: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Admin",
+    required: true,
+  },
 });
 
 const User = mongoose.model("User", userSchema);

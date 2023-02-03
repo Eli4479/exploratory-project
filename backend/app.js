@@ -28,6 +28,7 @@ const start = async () => {
     })
     .then(() => {
       app.listen(PORT, () => {
+        console.log("Connected to database");
         console.log(`Listening on port ${PORT}`);
       });
     })

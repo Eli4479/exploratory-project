@@ -1,6 +1,7 @@
 import React from 'react'
 import Nav from '../components/Nav'
 import Dashboard from '../components/Dashboard'
+import Buttons from '../components/Buttons'
 
 const Profile = () => {
   return (
@@ -8,6 +9,7 @@ const Profile = () => {
       <Nav />
       <div>
         <Dashboard />
+        <Buttons />
       </div>
     </>
   )

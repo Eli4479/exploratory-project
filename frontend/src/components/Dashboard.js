@@ -71,12 +71,11 @@ export default function Example() {
           </div>
         </header>
         <main>
-          <div className="mx-auto max-w-7xl flex flex-wrap justify-evenly py-6 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl text-center items-center m-2 flex align-middle flex-wrap justify-center py-6 sm:px-6 lg:px-8">
             {
               cards.map((card, index) => (
                 <Card key={index} {...card} />
               ))
-
             }
           </div>
         </main>
