@@ -1,6 +1,8 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { Link } from "react-router-dom";
+import "../components/components_css/button.css"
 
 const columns: GridColDef[] = [
   {
@@ -10,8 +12,9 @@ const columns: GridColDef[] = [
     sortable: false,
     width: 200,
   },
-  { 
-    field: 'id', headerName: 'Roll No', width: 200 },
+  {
+    field: 'id', headerName: 'Roll No', width: 200
+  },
   {
     field: 'attendance',
     headerName: 'Attendance %',
@@ -19,8 +22,8 @@ const columns: GridColDef[] = [
     width: 180,
     editable: true,
   },
-  
-  
+
+
 ];
 
 const rows = [
@@ -38,18 +41,35 @@ const rows = [
 export default function class_attendance() {
   return (
     <>
-    <div style={{ margin:'50px'}}><h1 style={{fontSize:'35px'}}>Attendance of all students of <span>EE231</span> </h1></div>
-    <Box sx={{ height: 400, width: '80%',margin:'50px', overflow:'hidden' }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-        checkboxSelection
-        disableSelectionOnClick
-        experimentalFeatures={{ newEditingApi: true }}
-      />
-    </Box>
+      <div className='flex justify-center'>
+        <div style={{ margin: '50px' }}><h1 style={{ fontSize: '35px' }}>Attendance of all students of <span>EE231</span> </h1>
+        </div>
+      </div>
+      <div className='flex flex-col justify-center content-center items-center'>
+        <Box sx={{ height: 400, width: '80%', margin: '50px', overflow: 'hidden' }} >
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            pageSize={5}
+            rowsPerPageOptions={[5]}
+            checkboxSelection
+            disableSelectionOnClick
+            experimentalFeatures={{ newEditingApi: true }}
+          />
+        </Box>
+        <div className='flex justify-evenly align-middle w-screen'>
+          <Link to='/profile'>
+            <button className="btnn">
+              Back
+            </button>
+          </Link>
+          <Link to='/camera'>
+            <button className="btnn">
+              register a class
+            </button>
+          </Link>
+        </div>
+      </div>
     </>
   );
 }
