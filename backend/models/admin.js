@@ -4,7 +4,6 @@ const adminSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
-    unique: true,
     trim: true,
   },
   password: {
@@ -12,12 +11,17 @@ const adminSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  course_code: {
+  confirm_password: {
     type: String,
     required: true,
-    unique: true,
     trim: true,
   },
+  course_code: [{
+    type: String,
+    required: true,
+    // unique: true,
+    trim: true,
+  }],
   email: {
     type: String,
     required: true,
@@ -30,3 +34,7 @@ const adminSchema = new mongoose.Schema({
     }
   },
 });
+
+const Admin = mongoose.model("Admin", adminSchema);
+
+module.exports = Admin;

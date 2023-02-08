@@ -7,11 +7,6 @@ const userSchema = new mongoose.Schema({
     unique: true,
     trim: true,
   },
-  password: {
-    type: String,
-    required: true,
-    trim: true,
-  },
   roll_number: {
     type: String,
     required: true,
@@ -29,7 +24,6 @@ const userSchema = new mongoose.Schema({
       }
     }
   },
-  // course code form admin
   professor: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Admin",

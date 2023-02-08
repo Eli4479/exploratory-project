@@ -27,9 +27,9 @@ const attendenceSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  course: {
-    type: String,
+  professor: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Admin",
     required: true,
-    trim: true,
-  }
+  },
 });
