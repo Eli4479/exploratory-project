@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const user = require('./user');
+const course = require('./course');
 
 const adminSchema = new mongoose.Schema({
   username: {
@@ -16,12 +18,13 @@ const adminSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  course_code: [{
-    type: String,
-    required: true,
-    // unique: true,
-    trim: true,
-  }],
+  course:
+    [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "course",
+      }
+    ],
   email: {
     type: String,
     required: true,
@@ -33,6 +36,13 @@ const adminSchema = new mongoose.Schema({
       }
     }
   },
+  // users:
+  //   [
+  //     {
+  //       type: mongoose.Schema.Types.ObjectId,
+  //       ref: "User",
+  //     }
+  //   ],
 });
 
 const Admin = mongoose.model("Admin", adminSchema);
