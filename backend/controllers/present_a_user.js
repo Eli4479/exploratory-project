@@ -5,20 +5,36 @@ const User = require('../models/user');
 const Course = require('../models/course');
 
 
-const present_a_user = async (req, res) => {
+const present_a_user = async (req, res, selected_course, selected_user) => {
+
+  const RollNumber = req.body.roll_number;
+  const the_user = await User.findOne({ roll_number: RollNumber });
   try {
-    const user = await User.findById(req.params.id);
-    if (user) {
-      user.present = user.present + 1;
-      if (user.present > user.total) {
-        user.present = user.total;
+
+    // update the user with one more present
+    the_user.present = the_user.present + 1;
+
+    // update the_user  using the method updateOne
+
+    User.updateOne({ roll_number: RollNumber }, the_user, function (err, result) {
+
+      let presents = the_user.present;
+      let total = the_user.total_classes;
+      presents = presents + 1;
+      if (presents > total) {
+        presents = total;
       }
-      await user.save();
-      res.status(200).json(user);
-    }
-    else {
-      res.status(400).json('User not found');
-    }
+      the_user.present = presents;
+      the_user.total_classes = total;
+      if (err) {
+        res.status(400).json('Error: ' + err);
+      }
+      else {
+        res.status(200).json('User present updated');
+      }
+    });
+
+
   }
   catch (err) {
     res.status(400).json('Error: ' + err);

@@ -36,13 +36,6 @@ const adminSchema = new mongoose.Schema({
       }
     }
   },
-  // users:
-  //   [
-  //     {
-  //       type: mongoose.Schema.Types.ObjectId,
-  //       ref: "User",
-  //     }
-  //   ],
 });
 
 const Admin = mongoose.model("Admin", adminSchema);

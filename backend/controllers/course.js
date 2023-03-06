@@ -33,7 +33,7 @@ const add_course = async (req, res) => {
   }
   catch (err) {
 
-    res.status(400).json('Errorsss: ' + err);
+    res.status(400).json('error' + err);
   }
 }
 

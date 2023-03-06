@@ -23,12 +23,6 @@ const userSchema = new mongoose.Schema({
       },
     },
   },
-  absent: {
-    type: Number,
-    required: true,
-    trim: true,
-    default: 0,
-  },
   present: {
     type: Number,
     required: true,
@@ -40,6 +34,12 @@ const userSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  image: {
+    data: Buffer,
+    contentType: String
+  }
+
+
 });
 
 const User = mongoose.model("User", userSchema);
