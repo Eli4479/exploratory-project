@@ -10,7 +10,7 @@ const get_course_details = async (req, res) => {
       res.status(200).json(profile);
     }
     else {
-      res.status(400).json('Incorrect email or password');
+      res.status(400).json('course not found in database');
     }
   }
   catch (err) {

@@ -3,13 +3,7 @@ const Admin = require('../models/admin');
 const Router = express.Router();
 
 const login_admin = async (req, res) => {
-  // see if email exists
-
-  // see if password matches
-
   const { email, password } = req.body;
-  console.log(req.body);
-
   try {
     const profile = await Admin.findOne(
       {

@@ -25,6 +25,7 @@ const adminSchema = new mongoose.Schema({
         ref: "course",
       }
     ],
+  default: [],
   email: {
     type: String,
     required: true,

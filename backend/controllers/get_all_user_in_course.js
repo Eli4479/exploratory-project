@@ -1,5 +1,4 @@
 const express = require('express');
-const Admin = require('../models/admin');
 const Router = express.Router();
 const User = require('../models/user');
 const Course = require('../models/course');
@@ -16,7 +15,7 @@ const get_all_user_in_course = async (req, res) => {
       res.status(200).json(user_array);
     }
     else {
-      res.status(400).json('Incorrect email or password');
+      res.status(400).json('Course not found in database');
     }
   }
   catch (err) {

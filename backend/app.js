@@ -4,11 +4,8 @@ const app = express();
 require("dotenv").config();
 const cors = require("cors");
 const mongoose = require("mongoose");
-const multer = require("multer");
 const PORT = process.env.PORT || 8000;
 const { spawn } = require("child_process");
-const Admin = require('./models/admin');
-const Router = express.Router();
 const User = require('./models/user');
 const Course = require('./models/course');
 
@@ -43,9 +40,8 @@ app.get("/api/admin/course/user/:id", user_details_in_a_course);
 app.put("/api/admin/:id", add_course);
 app.get("/api/admin/course/:id", get_course_details);
 app.post("/api/admin/course/:id", register_class);
-app.put("/api/admin/course/:id", async (req, res) => {
-  add_user(req, res);
-});
+app.put("/api/admin/course/:id", add_user);
+app.get("/api/admin/course/users/:id", get_all_user_in_course);
 
 
 async function match_face(RollNumber) {
@@ -64,30 +60,27 @@ async function match_face(RollNumber) {
   );
 }
 app.put("/api/admin/course/user/:id", async (req, res) => {
-
-  const profile = await Course.findById(req.params.id);
   const RollNumber = req.body.roll_number;
   const selected_user = await User.find({ roll_number: RollNumber });
   if (selected_user.length == 0) {
-    res.status(400).json('User not found');
+    res.status(400).json('Users roll number not found in database');
   }
   else {
     let new_data = await match_face(RollNumber);
     if (new_data == "[True]\n") {
-      present_a_user(req, res, profile, selected_user);
+      present_a_user(req, res);
     }
     else if (new_data == "[False]\n") {
-      res.status(400).json('Face not matched');
+      res.status(400).json('Face not matched with the given roll number');
     }
     else if (new_data == "0\n") {
-      res.status(400).json('face cannot be found try with clear background');
+      res.status(400).json('face not found please try with clear background');
     }
     else {
-      res.status(400).json('try again');
+      res.status(400).json('server error please try again later');
     }
   }
 });
-app.get("/api/admin/course/users/:id", get_all_user_in_course);
 
 
 mongoose.connect(process.env.MONGO_URI).then(() => { });
