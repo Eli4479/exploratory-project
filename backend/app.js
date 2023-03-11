@@ -44,8 +44,8 @@ app.put("/api/admin/course/:id", add_user);
 app.get("/api/admin/course/users/:id", get_all_user_in_course);
 
 
-async function match_face(RollNumber) {
-  const python = spawn("python", ["./match.py", RollNumber]);
+async function match_face(pic) {
+  const python = spawn("python", ["./match.py", pic]);
   return new Promise((resolve, reject) => {
     python.stdout.on("data", function (data) {
       console.log("Pipe data from python script ...");
@@ -66,7 +66,7 @@ app.put("/api/admin/course/user/:id", async (req, res) => {
     res.status(400).json('Users roll number not found in database');
   }
   else {
-    let new_data = await match_face(RollNumber);
+    let new_data = await match_face(selected_user[0].profile_pic);
     if (new_data == "[True]\n") {
       present_a_user(req, res);
     }

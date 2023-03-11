@@ -5,13 +5,21 @@ import numpy as np
 import cv2
 import face_recognition
 import cvzone
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+import requests
 
 
-name = sys.argv[1]
+profile_pic_url = sys.argv[1]
 # print("encd=", encd)
 
+response = requests.get(profile_pic_url)
 
-img = cv2.imread("uploads/" + name + ".jpg")
+# convert response to image
+img = np.asarray(bytearray(response.content), dtype="uint8")
+img = cv2.imdecode(img, cv2.IMREAD_COLOR)
+# img = cv2.imread("uploads/" + name + ".jpg")
 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 encodings = face_recognition.face_encodings(img)
 if len(encodings) == 0:
