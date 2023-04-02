@@ -21,7 +21,7 @@ const register_admin = async (req, res) => {
     }
   }
   catch (err) {
-    res.status(400).json('Error: ' + err);
+    res.status(400).json(err);
   }
 }
 exports.register_admin = register_admin;

@@ -34,6 +34,8 @@ const mongo_add_user = async (req, res, url, profile) => {
       profile_pic: url,
     });
     await user.save();
+    profile.users.push(user);
+    await profile.save();
     res.status(200).json(user);
   }
   catch (err) {

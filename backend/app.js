@@ -33,8 +33,8 @@ app.get("/", async (req, res) => {
   res.send("login");
 });
 
-app.get("/api/register/admin", register_admin);
-app.get("/api/login/admin", login_admin);
+app.post("/api/register/admin", register_admin);
+app.post("/api/login/admin", login_admin);
 app.get("/api/admin/:id", login_details);
 app.get("/api/admin/course/user/:id", user_details_in_a_course);
 app.put("/api/admin/:id", add_course);
