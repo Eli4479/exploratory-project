@@ -18,6 +18,7 @@ export default function Log() {
       "email": email,
       "password": password
     });
+    console.log(bodyContent);
 
     let response = await fetch("http://localhost:3000/api/login/admin", {
       method: "POST",
@@ -85,7 +86,6 @@ export default function Log() {
             </button>
           </div>
         </form>
-
         <p className="mt-8 text-xs font-light text-center text-gray-700">
           {" "}
           Don't have an account?{" "}
@@ -95,6 +95,7 @@ export default function Log() {
           >
             Sign up
           </a>
+
         </p>
       </div>
       <Toaster position="bottom-right" />
