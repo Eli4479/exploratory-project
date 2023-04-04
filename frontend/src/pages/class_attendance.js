@@ -1,73 +1,153 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import "../components/components_css/button.css"
 
-const columns: GridColDef[] = [
-  {
-    field: 'fullName',
-    headerName: 'Full name',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 200,
-  },
-  {
-    field: 'id', headerName: 'Roll No', width: 200
-  },
-  {
-    field: 'attendance',
-    headerName: 'Attendance %',
-    type: 'number',
-    width: 180,
-    editable: true,
-  },
 
+export default function Class_attendance() {
+  const [User, setUser] = React.useState([]);
+  const get_all_user = async () => {
+    const course_token = localStorage.getItem("course_id");
+    const token1 = course_token.replace(/['"]+/g, '');
+    let headersList = {
+      "Accept": "*/*",
+      "User-Agent": "Thunder Client (https://www.thunderclient.com)"
+    }
+    let response = await fetch(`http://localhost:3000/api/admin/course/users/${token1}`, {
+      method: "GET",
+      headers: headersList
+    });
 
-];
+    let data = await response.text();
+    let data1 = JSON.parse(data);
+    setUser(data1);
+    // console.log(data1);
+    console.log(typeof (data1));
+    console.log(User);
+  }
+  React.useEffect(() => {
+    get_all_user();
+  }, [])
+  const add_a_class = async () => {
+    const course_token = localStorage.getItem("course_id");
+    const token1 = course_token.replace(/['"]+/g, '');
+    let headersList = {
+      "Accept": "*/*",
+      "User-Agent": "Thunder Client (https://www.thunderclient.com)"
+    }
 
-const rows = [
-  { id: 21084001, fullName: 'Jon Snow', attendance: 35 },
-  { id: 21084002, fullName: 'Cersei Lannister', attendance: 42 },
-  { id: 21084003, fullName: 'Jaime Lannister', attendance: 45 },
-  { id: 21084004, fullName: 'Arya Stark', attendance: 16 },
-  { id: 21084005, fullName: 'Daenerys Targaryen', attendance: 85 },
-  { id: 21084006, fullName: 'Melisandre', attendance: 90 },
-  { id: 21084007, fullName: 'Ferrara Clifford', attendance: 44 },
-  { id: 21084008, fullName: 'Rossini Frances', attendance: 36 },
-  { id: 21084009, fullName: 'Harvey Roxie', attendance: 65 },
-];
+    let bodyContent = new FormData();
 
-export default function class_attendance() {
+    let response = await fetch(`http://localhost:3000/api/admin/course/${token1}`, {
+      method: "POST",
+      body: bodyContent,
+      headers: headersList
+    });
+
+    let data = await response.text();
+    window.location.reload();
+  }
   return (
     <>
       <div className='flex justify-center'>
         <div style={{ margin: '50px' }}><h1 style={{ fontSize: '35px' }}>Attendance of all students of <span>EE231</span> </h1>
         </div>
       </div>
-      <div className='flex flex-col justify-center content-center items-center'>
-        <Box sx={{ height: 400, width: '80%', margin: '50px', overflow: 'hidden' }} >
-          <DataGrid
-            rows={rows}
-            columns={columns}
-            pageSize={5}
-            rowsPerPageOptions={[5]}
-            checkboxSelection
-            disableSelectionOnClick
-            experimentalFeatures={{ newEditingApi: true }}
-          />
-        </Box>
-        <div className='flex justify-evenly align-middle w-screen'>
-          <Link to='/profile'>
-            <button className="btnn">
-              Back
-            </button>
-          </Link>
-          <Link to='/camera'>
-            <button className="btnn">
-              register a class
-            </button>
-          </Link>
+      <div className="flex flex-col m-10">
+        <div className="overflow-x-auto">
+          <div className="p-1.5 w-full inline-block align-middle justify-center content-center h-full">
+            <div className="overflow-hidden border rounded-lg">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
+                    >
+                      Roll Number
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
+                    >
+                      Name
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
+                    >
+                      Present
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-xs font-bold text-right text-gray-500 uppercase "
+                    >
+                      precentage present
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {
+                    User.length === 0 ? (
+                      <tr>
+                        <td colSpan={4} className="text-center">
+                          No Users
+                        </td>
+                      </tr>
+                    ) : (
+                      User.map(u => {
+                        let percent = u.present / u.total_classes * 100;
+                        isNaN(percent) ? percent = 0 : percent = percent;
+                        percent = percent.toFixed(2);
+                        return (
+                          <tr key={u._id}>
+                            <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">
+                              {u.roll_number}
+                            </td>
+                            <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                              {u.username}
+                            </td>
+                            <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                              {u.present} of {u.total_classes} classes
+                            </td>
+                            <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
+                              {/* <span className="text-green-500 hover:text-green-700">
+                                {percent}%
+                              </span> */}
+                              {/* if percent is less than 75% then show it with red color */}
+                              {percent < 75 ? (
+                                <span className="text-red-500 hover:text-red-700">
+                                  {percent}%
+                                </span>
+                              ) : (
+                                <span className="text-green-500 hover:text-green-700">
+                                  {percent}%
+                                </span>
+                              )}
+                            </td>
+                          </tr>
+                        )
+                      })
+                    )
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div className='flex justify-evenly w-full'>
+          <button className="btnn"
+            onClick={add_a_class}
+          >
+            register a class
+          </button>
+          <button className="btnn"
+          >
+            Add A User
+          </button>
+          <button className="btnn"
+          >
+            Mark Course Attendance
+          </button>
         </div>
       </div>
     </>

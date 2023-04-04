@@ -1,39 +1,151 @@
-import React from 'react'
-import "../components/components_css/button.css"
+import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
+import "../components/components_css/button.css"
 
-const student_attendance = () => {
+
+export default function Class_attendance() {
+  const [User, setUser] = React.useState([]);
+  const get_all_user = async () => {
+    const course_token = localStorage.getItem("course_id");
+    const token1 = course_token.replace(/['"]+/g, '');
+    let headersList = {
+      "Accept": "*/*",
+      "User-Agent": "Thunder Client (https://www.thunderclient.com)"
+    }
+    let response = await fetch(`http://localhost:3000/api/admin/course/users/${token1}`, {
+      method: "GET",
+      headers: headersList
+    });
+
+    let data = await response.text();
+    let data1 = JSON.parse(data);
+    setUser(data1);
+    // console.log(data1);
+    console.log(typeof (data1));
+    console.log(User);
+  }
+  React.useEffect(() => {
+    get_all_user();
+  }, [])
+  const add_a_class = async () => {
+    const course_token = localStorage.getItem("course_id");
+    const token1 = course_token.replace(/['"]+/g, '');
+    let headersList = {
+      "Accept": "*/*",
+      "User-Agent": "Thunder Client (https://www.thunderclient.com)"
+    }
+
+    let bodyContent = new FormData();
+
+    let response = await fetch(`http://localhost:3000/api/admin/course/${token1}`, {
+      method: "POST",
+      body: bodyContent,
+      headers: headersList
+    });
+
+    let data = await response.text();
+    window.location.reload();
+  }
   return (
     <>
-      <div class="flex flex-col items-center h-screen w-screen justify-center">
-        <div class="bg-gray-100 shadow-xl w-[30%] flex flex-col justify-center items-center h-[60%] rounded-lg py-3">
-          <div class="photo-wrapper p-2  mt-2">
-            <img class="w-32 h-32 rounded-full mx-auto" src="https://www.gravatar.com/avatar/2acfb745ecf9d4dccb3364752d17f65f?s=260&d=mp" alt="John Doe" />
-          </div>
-          <div class="w-full h-screen text-center flex justify-center align-middle flex-col ">
-            <h3 class="text-center text-4xl text-gray-900 font-medium leading-8">Name</h3>
-            <div class="text-center text-gray-400 text-3xl mt-4 font-semibold">
-              <p>Roll_number</p>
+      <div className="flex flex-col m-10">
+        <div className="overflow-x-auto">
+          <div className="p-1.5 w-full inline-block align-middle justify-center content-center h-full">
+            <div className="overflow-hidden border rounded-lg">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
+                    >
+                      Roll Number
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
+                    >
+                      Name
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
+                    >
+                      Present
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-xs font-bold text-right text-gray-500 uppercase "
+                    >
+                      precentage present
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {
+                    User.length === 0 ? (
+                      <tr>
+                        <td colSpan={4} className="text-center">
+                          No Users
+                        </td>
+                      </tr>
+                    ) : (
+                      User.map(u => {
+                        let percent = u.present / u.total_classes * 100;
+                        isNaN(percent) ? percent = 0 : percent = percent;
+                        percent = percent.toFixed(2);
+                        return (
+                          <tr key={u._id}>
+                            <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">
+                              {u.roll_number}
+                            </td>
+                            <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                              {u.username}
+                            </td>
+                            <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                              {u.present} of {u.total_classes} classes
+                            </td>
+                            <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
+                              {/* <span className="text-green-500 hover:text-green-700">
+                                {percent}%
+                              </span> */}
+                              {/* if percent is less than 75% then show it with red color */}
+                              {percent < 75 ? (
+                                <span className="text-red-500 hover:text-red-700">
+                                  {percent}%
+                                </span>
+                              ) : (
+                                <span className="text-green-500 hover:text-green-700">
+                                  {percent}%
+                                </span>
+                              )}
+                            </td>
+                          </tr>
+                        )
+                      })
+                    )
+                  }
+                </tbody>
+              </table>
             </div>
-            <div className="mt-2">
-              <h1 style={{ margin: '10px' }} className="text-xl">Course Code: EE231</h1>
-              <h1 style={{ margin: '10px' }} className="text-xl">Total Present : 35</h1>
-              <h1 style={{ margin: '10px' }} className="text-xl">Total Absent : 5</h1>
-              <h1 style={{ margin: '10px' }} className="text-xl">Attendance : 87.5%</h1>
-            </div>
           </div>
-        </div>
-        <div className='w-screen flex justify-evenly m-2'>
-          <Link to={'/profile'}>
-            <button class=" btnn">
-              Back
-            </button>
-          </Link>
         </div>
       </div>
+      <div className='flex justify-evenly w-full'>
+        <button className="btnn"
+          onClick={add_a_class}
+        >
+          register a class
+        </button>
+        <button className="btnn"
+        >
+          Add A User
+        </button>
+        <button className="btnn"
+        >
+          Mark Course Attendance
+        </button>
+      </div>
     </>
-  )
+  );
 }
-
-export default student_attendance
-

@@ -13,7 +13,6 @@ const login_admin = async (req, res) => {
     )
     if (profile) {
       res.status(200).json(profile._id);
-      console.log(profile._id);
     }
     else {
       res.status(400).json('Incorrect email or password');
