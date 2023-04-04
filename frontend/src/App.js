@@ -16,6 +16,7 @@ function App() {
       <>
         <Router>
           <Routes>
+
             <Route exact path="/login" element={<Log />} />
             <Route exact path="/profile" element={<Profile />} />
             <Route exact path="/" element={<Registration />} />
