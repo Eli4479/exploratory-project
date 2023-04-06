@@ -1,6 +1,7 @@
 import React from "react";
 import toast, { Toaster } from 'react-hot-toast';
 import { Link } from "react-router-dom";
+import "../components/components_css/button.css"
 
 export default function Mark_attendance() {
 
@@ -68,8 +69,18 @@ export default function Mark_attendance() {
               Mark student attendance
             </button>
           </div>
+          <div className="mt-6 flex justify-center text-center">
+            <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600"
+              onClick={(e) => {
+                e.preventDefault();
+                window.location.href = "/class_attendance"
+              }
+              }
+            >
+              Back
+            </button>
+          </div>
         </form>
-
       </div>
       <Toaster position="bottom-right" />
     </div>

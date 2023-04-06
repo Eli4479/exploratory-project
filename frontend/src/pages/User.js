@@ -111,21 +111,6 @@ export default function User() {
               />
             </div>
             <div className="mb-2">
-              {/* make a input field to upload your photo */}
-              {/* <label
-                for="photo"
-                className="block text-sm font-semibold text-gray-800"
-              >
-                Photo
-              </label>
-              <input
-                type="file"
-                onChange={(e) => {
-                  setImage(e.target.value);
-                }}
-              >
-
-              </input> */}
               <label
                 for="photo"
                 className="block text-sm font-semibold text-gray-800"
@@ -145,6 +130,17 @@ export default function User() {
                 onClick={add_student}
               >
                 Add student
+              </button>
+            </div>
+            <div className="mt-6 flex justify-center text-center">
+              <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600"
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.location.href = "/class_attendance"
+                }
+                }
+              >
+                Back
               </button>
             </div>
           </form>

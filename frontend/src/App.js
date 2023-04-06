@@ -10,6 +10,7 @@ import Class_attendance from "./pages/class_attendance";
 import Mark_attendance from "./pages/mark_attendance";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import User from "./pages/User";
+import Particular from "./pages/Particular";
 
 function App() {
   return (
@@ -32,6 +33,12 @@ function App() {
               <>
                 <Nav />
                 <Class_attendance />
+              </>
+            } />
+            <Route exact path="/Particular" element={
+              <>
+                <Nav />
+                <Particular />
               </>
             } />
             <Route exact path="/mark_attendance" element={

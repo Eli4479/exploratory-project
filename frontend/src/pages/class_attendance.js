@@ -135,6 +135,11 @@ export default function Class_attendance() {
           </div>
         </div>
         <div className='flex justify-evenly w-full'>
+          <a href="/profile">
+            <button className="btnn">
+              Back
+            </button>
+          </a>
           <button className="btnn"
             onClick={add_a_class}
           >
@@ -148,6 +153,11 @@ export default function Class_attendance() {
           <a href="mark_attendance">
             <button className="btnn">
               Mark Course Attendance
+            </button>
+          </a>
+          <a href="/Particular">
+            <button className="btnn">
+              See Particular Student Attendance
             </button>
           </a>
         </div>

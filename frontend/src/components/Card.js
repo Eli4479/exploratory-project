@@ -35,7 +35,7 @@ const Card = () => {
   return (
     <>
       {
-        data.size === 0 ? <h1>Loading</h1> : data.map((d) => {
+        data.size === 0 ? <h1>NO COURSE</h1> : data.map((d) => {
           return (
             <Link to={`/class_attendance`} key={d._id} class="block text-center m-4 w-1/2 p-6 bg-white border border-gray-200 rounded-lg shadow ease-in duration-100 hover:bg-gray-100"
               onClick={() => { localStorage.setItem('course_id', d._id) }}>

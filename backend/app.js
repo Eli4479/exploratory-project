@@ -37,7 +37,7 @@ app.get("/", async (req, res) => {
 app.post("/api/register/admin", register_admin);
 app.post("/api/login/admin", login_admin);
 app.get("/api/admin/:id", login_details);
-app.get("/api/admin/course/user/:id", user_details_in_a_course);
+app.post("/api/admin/course/user/:id", user_details_in_a_course);
 app.put("/api/admin/:id", add_course);
 app.get("/api/admin/course/:id", get_course_details);
 app.post("/api/admin/course/:id", register_class);
