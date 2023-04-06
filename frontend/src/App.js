@@ -7,6 +7,7 @@ import Error from "./pages/Error/Error.js";
 import Camera from "./pages/Camera";
 import Student_attendance from "./pages/student_attendance";
 import Class_attendance from "./pages/class_attendance";
+import Mark_attendance from "./pages/mark_attendance";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -30,6 +31,12 @@ function App() {
               <>
                 <Nav />
                 <Class_attendance />
+              </>
+            } />
+             <Route exact path="/mark_attendance" element={
+              <>
+                <Nav />
+                <Mark_attendance />
               </>
             } />
             <Route exact path="/camera" element={
