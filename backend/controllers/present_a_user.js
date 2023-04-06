@@ -8,7 +8,9 @@ const Course = require('../models/course');
 const present_a_user = async (req, res) => {
 
   const RollNumber = req.body.roll_number;
-  const the_user = await User.findOne({ roll_number: RollNumber });
+  const course = await Course.findById(req.params.id);
+  // find the user in the course only
+  const the_user = await User.findOne({ roll_number: RollNumber, course: course._id });
   try {
     the_user.present = the_user.present + 1;
     User.updateOne({ roll_number: RollNumber }, the_user, function (err, result) {

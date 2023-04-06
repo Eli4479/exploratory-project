@@ -140,14 +140,16 @@ export default function Class_attendance() {
           >
             register a class
           </button>
-          <button className="btnn"
-          >
-            Add A User
-          </button>
-          <button className="btnn"
-          >
-            Mark Course Attendance
-          </button>
+          <a href="/user">
+            <button className="btnn">
+              Add A User
+            </button>
+          </a>
+          <a href="mark_attendance">
+            <button className="btnn">
+              Mark Course Attendance
+            </button>
+          </a>
         </div>
       </div>
     </>

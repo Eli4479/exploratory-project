@@ -22,6 +22,7 @@ const { add_user } = require('../backend/controllers/add_a_user.js');
 const { present_a_user } = require('../backend/controllers/present_a_user.js');
 const { get_all_user_in_course } = require('../backend/controllers/get_all_user_in_course.js');
 const { user_details_in_a_course } = require('../backend/controllers/user_details _in_a_course.js');
+const { log } = require("console");
 let dataToSend2;
 
 
@@ -61,7 +62,9 @@ async function match_face(pic) {
 }
 app.put("/api/admin/course/user/:id", async (req, res) => {
   const RollNumber = req.body.roll_number;
+  // only make user present in course which id is given in url
   const selected_user = await User.find({ roll_number: RollNumber });
+  log(selected_user[0].profile_pic);
   if (selected_user.length == 0) {
     res.status(400).json('Users roll number not found in database');
   }
@@ -77,7 +80,8 @@ app.put("/api/admin/course/user/:id", async (req, res) => {
       res.status(400).json('face not found please try with clear background');
     }
     else {
-      res.status(400).json('server error please try again later');
+      console.log(new_data);
+      res.status(400).json('server error please try again later_');
     }
   }
 });
