@@ -18,7 +18,7 @@ const Navbar = ({ hamActive, setHamActive }) => {
           <span className={styles.hamburgerLines}></span>
         </button>
         <div className={`${styles.navLeft}`}>
-          <img src={logo} alt="logo" style={{height: "57px",width:"110px"}} className={styles.brand} />
+          <img src={logo} alt="logo" style={{ height: "57px", width: "110px" }} className={styles.brand} />
         </div>
         <div className={`${styles.navRight} center`}>
           <div className={styles.navLinksWrapper}>
@@ -35,10 +35,12 @@ const Navbar = ({ hamActive, setHamActive }) => {
             </a> */}
           </div>
           <div>
-            <a href="/" className={styles.login}>
+            <a href="/login" className={styles.login}>
               Log in
             </a>
-            <button className={styles.signup}>Sign Up</button>
+            <a href="/">
+              <button className={styles.signup}>Sign Up</button>
+            </a>
           </div>
         </div>
       </div>

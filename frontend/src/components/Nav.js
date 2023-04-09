@@ -14,7 +14,7 @@ function classNames(...classes) {
 export default function Nav() {
   const logOut = () => {
     localStorage.removeItem('token')
-    window.location.href = '/login'
+    window.location.href = '/home'
   }
   return (
     <Disclosure as="nav" className="bg-gray-800 z-20">
@@ -37,12 +37,12 @@ export default function Nav() {
                 <div className="flex flex-shrink-0 items-center">
                   <img
                     className="block h-8 w-auto lg:hidden"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTntY3A8wM9MtyPqd13CaOdNriuNFh1rmHGOA&usqp=CAU"
                     alt="Your Company"
                   />
                   <img
                     className="hidden h-8 w-auto lg:block"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTntY3A8wM9MtyPqd13CaOdNriuNFh1rmHGOA&usqp=CAU"
                     alt="Your Company"
                   />
                 </div>

@@ -10,6 +10,15 @@ const add_course = async (req, res) => {
     console.log(req.body);
     const profile = await Admin.findById(req.params.id);
     if (profile) {
+      // find if course already exists in this profile then don't add it
+      const courses = profile.course;
+      for (let i = 0; i < courses.length; i++) {
+        const the_course = await Course.findById(courses[i]);
+        if (the_course.course_code === course_code) {
+          res.status(400).json('Course already exists in this profile!');
+          return;
+        }
+      }
       const course = new Course({
         course_code: course_code,
         course_name: course_name,

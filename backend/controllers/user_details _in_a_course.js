@@ -13,7 +13,6 @@ const user_details_in_a_course = async (req, res) => {
       let user_array = [];
       for (let i = 0; i < profile.users.length; i++) {
         const the_user = await User.findById(profile.users[i]);
-        // console.log(the_user);
         user_array.push(the_user);
       }
       console.log(user_array);

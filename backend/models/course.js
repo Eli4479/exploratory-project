@@ -5,7 +5,6 @@ const courseSchema = new mongoose.Schema({
   course_code: {
     type: String,
     required: true,
-    unique: true,
     trim: true,
   },
   course_name: {

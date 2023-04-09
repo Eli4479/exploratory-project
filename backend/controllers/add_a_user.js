@@ -26,6 +26,19 @@ const upload = multer({ storage: Storage }).single('testImage');
 const mongo_add_user = async (req, res, url, profile) => {
   try {
     const { name, email, roll_number } = req.body;
+    console.log(name, email, roll_number, url);
+    if (!name || !email || !roll_number || !url) {
+      res.status(400).json('All fields are required!');
+      return;
+    }
+    const users = profile.users;
+    for (let i = 0; i < users.length; i++) {
+      const user = await User.findById(users[i]);
+      if (user.roll_number === roll_number) {
+        res.status(400).json('User already exists in this profile!!');
+        return;
+      }
+    }
     const user = new User({
       username: name,
       email: email,
