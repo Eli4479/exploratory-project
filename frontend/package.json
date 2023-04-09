@@ -23,6 +23,7 @@
     "react-table": "^7.8.0",
     "react-table-6": "^6.11.0",
     "react-toastify": "^9.1.2",
+    "util": "^0.12.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

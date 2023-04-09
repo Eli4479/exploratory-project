@@ -11,6 +11,7 @@ import Mark_attendance from "./pages/mark_attendance";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import User from "./pages/User";
 import Particular from "./pages/Particular";
+import Home from "./pages/Home";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Router>
           <Routes>
 
+          <Route exact path="/home" element={<Home/>} />
             <Route exact path="/login" element={<Log />} />
             <Route exact path="/profile" element={<Profile />} />
             <Route exact path="/" element={<Registration />} />
