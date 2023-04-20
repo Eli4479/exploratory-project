@@ -10,8 +10,6 @@ const User = require('./models/user');
 const Course = require('./models/course');
 
 
-
-
 const { register_admin } = require('../backend/controllers/register');
 const { login_admin } = require('../backend/controllers/login');
 const { add_course } = require('../backend/controllers/course');
@@ -63,7 +61,16 @@ async function match_face(pic) {
 app.put("/api/admin/course/user/:id", async (req, res) => {
   const RollNumber = req.body.roll_number;
   // only make user present in course which id is given in url
-  const selected_user = await User.find({ roll_number: RollNumber });
+  const course = await Course.findById(req.params.id);
+  let the_user;
+  for (let i = 0; i < course.users.length; i++) {
+    let user = await User.findById(course.users[i]);
+    if (user.roll_number == RollNumber) {
+      the_user = user;
+      break;
+    }
+  }
+  const selected_user = [the_user];
   log(selected_user[0].profile_pic);
   if (selected_user.length == 0) {
     res.status(400).json('Users roll number not found in database');

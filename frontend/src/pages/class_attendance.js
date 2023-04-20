@@ -49,7 +49,7 @@ export default function Class_attendance() {
   return (
     <>
       <div className='flex justify-center'>
-        <div style={{ margin: '50px' }}><h1 style={{ fontSize: '35px' }}>Attendance of all students of <span>EE231</span> </h1>
+        <div style={{ margin: '50px' }}><h1 style={{ fontSize: '35px' }}>Attendance of all the students</h1>
         </div>
       </div>
       <div className="flex flex-col m-10">
