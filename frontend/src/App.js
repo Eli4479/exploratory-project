@@ -16,55 +16,75 @@ import Home from "./pages/Home";
 function App() {
   return (
     <div className="App">
-
-      <>
-        <Router>
-          <Routes>
-
-          <Route exact path="/home" element={<Home/>} />
-            <Route exact path="/login" element={<Log />} />
-            <Route exact path="/profile" element={<Profile />} />
-            <Route exact path="/" element={<Registration />} />
-            <Route exact path="/student_attendance" element={
+      <Router>
+        <Routes>
+          <Route exact path="/home" element={<Home />} />
+          <Route exact path="/login" element={<Log />} />
+          <Route exact path="/profile" element={<Profile />} />
+          <Route exact path="/" element={<Registration />} />
+          <Route
+            exact
+            path="/student_attendance"
+            element={
               <>
                 <Nav />
                 <Student_attendance />
               </>
-            } />
-            <Route exact path="/class_attendance" element={
+            }
+          />
+          <Route
+            exact
+            path="/class_attendance"
+            element={
               <>
                 <Nav />
                 <Class_attendance />
               </>
-            } />
-            <Route exact path="/Particular" element={
+            }
+          />
+          <Route
+            exact
+            path="/Particular"
+            element={
               <>
                 <Nav />
                 <Particular />
               </>
-            } />
-            <Route exact path="/mark_attendance" element={
+            }
+          />
+          <Route
+            exact
+            path="/mark_attendance"
+            element={
               <>
                 <Nav />
                 <Mark_attendance />
               </>
-            } />
-            <Route exact path="/user" element={
+            }
+          />
+          <Route
+            exact
+            path="/user"
+            element={
               <>
                 <Nav />
                 <User />
               </>
-            } />
-            <Route exact path="/camera" element={
+            }
+          />
+          <Route
+            exact
+            path="/camera"
+            element={
               <>
                 <Nav />
                 <Camera />
               </>
-            } />
-            <Route exact path="/*" element={<Error />} />
-          </Routes>
-        </Router>
-      </>
+            }
+          />
+          <Route exact path="/*" element={<Error />} />
+        </Routes>
+      </Router>
     </div>
   );
 }

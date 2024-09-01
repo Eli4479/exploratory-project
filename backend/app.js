@@ -1,5 +1,4 @@
 const express = require("express");
-require("express-async-errors");
 const app = express();
 require("dotenv").config();
 const cors = require("cors");
@@ -25,8 +24,6 @@ const {
 const {
   user_details_in_a_course,
 } = require("../backend/controllers/user_details _in_a_course.js");
-const { log } = require("console");
-let dataToSend2;
 
 app.use(cors({ origin: true }));
 app.use(express.json());
@@ -49,28 +46,24 @@ app.get("/api/admin/course/users/:id", get_all_user_in_course);
 async function match_face(pic) {
   return new Promise((resolve, reject) => {
     const python = spawn("python3", ["./match.py", pic]);
-
-    let dataToSend2 = "0"; // Default to server error
+    let dataToSend2 = "0";
     python.stdout.on("data", (data) => {
       console.log("Pipe data from python script ...");
       let output = data.toString().trim();
-      // split the output by new line
       output = output.split("");
-      // take last 4 characters of the output
       output = output.slice(-4).join("");
       console.log(output);
       if (output === "True") {
-        dataToSend2 = "1"; // Match found
-      } else if (output === "False") {
-        dataToSend2 = "2"; // No match
+        dataToSend2 = "1";
+      } else if (output === "Fals") {
+        dataToSend2 = "2";
       } else {
-        dataToSend2 = "0"; // Server error or unexpected output
+        dataToSend2 = "0";
       }
     });
-
     python.stderr.on("data", (data) => {
       console.error(`stderr: ${data}`);
-      dataToSend2 = "0"; // Server error
+      dataToSend2 = "0";
     });
 
     python.on("close", (code) => {
@@ -80,29 +73,26 @@ async function match_face(pic) {
 
     python.on("error", (err) => {
       console.error(`Error spawning Python process: ${err}`);
-      dataToSend2 = "0"; // Server error
+      dataToSend2 = "0";
       resolve(dataToSend2);
     });
   });
 }
 app.put("/api/admin/course/user/:id", async (req, res) => {
   const RollNumber = req.body.roll_number;
-  // only make user present in course which id is given in url
   const course = await Course.findById(req.params.id);
   let the_user;
-  for (let i = 0; i < course.users.length; i++) {
-    let user = await User.findById(course.users[i]);
-    if (user.roll_number == RollNumber) {
+  for (const userId of course.users) {
+    const user = await User.findById(userId);
+    if (user.roll_number === RollNumber) {
       the_user = user;
       break;
     }
   }
-  const selected_user = [the_user];
-  log(selected_user[0].profile_pic);
-  if (selected_user.length == 0) {
+  if (!the_user) {
     res.status(400).json("Users roll number not found in database");
   } else {
-    const new_data = await match_face(selected_user[0].profile_pic);
+    const new_data = await match_face(the_user.profile_pic);
     console.log(new_data);
     if (new_data == "1") {
       present_a_user(req, res);
@@ -116,8 +106,6 @@ app.put("/api/admin/course/user/:id", async (req, res) => {
     }
   }
 });
-
-mongoose.connect(process.env.MONGO_URI).then(() => {});
 const start = async () => {
   await mongoose
     .connect(process.env.MONGO_URI, {

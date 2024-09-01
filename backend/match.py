@@ -87,8 +87,10 @@ def main():
         sys.exit(1)
 
     result = match_faces(reference_encoding, captured_photo_filename)
-
-    print(f"{result}")
+    if(result==False):
+        print("Fals")
+    else:
+        print(f"{result}")
 
 if __name__ == "__main__":
     main()

@@ -115,10 +115,6 @@ export default function Class_attendance() {
                             {u.present} of {u.total_classes} classes
                           </td>
                           <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                            {/* <span className="text-green-500 hover:text-green-700">
-                                {percent}%
-                              </span> */}
-                            {/* if percent is less than 75% then show it with red color */}
                             {percent < 75 ? (
                               <span className="text-red-500 hover:text-red-700">
                                 {percent}%
