@@ -1,11 +1,11 @@
-const express = require('express');
-const Admin = require('../models/admin');
+const express = require("express");
+const Admin = require("../models/admin");
 const Router = express.Router();
-const User = require('../models/user');
-const Course = require('../models/course');
-
+const User = require("../models/user");
+const Course = require("../models/course");
 
 const present_a_user = async (req, res) => {
+  console.log("Presenting a user");
   let RollNumber = req.body.roll_number;
   RollNumber = String(RollNumber);
   const course = await Course.findById(req.params.id);
@@ -29,12 +29,10 @@ const present_a_user = async (req, res) => {
     }
     user_present = String(user_present);
     the_user.present = user_present;
-    the_user.save().then(() => res.json('User present updated!'));
-
+    the_user.save().then(() => res.json("User present updated!"));
+  } catch (err) {
+    res.status(400).json("Error: " + err);
   }
-  catch (err) {
-    res.status(400).json('Error: ' + err);
-  }
-}
+};
 
 exports.present_a_user = present_a_user;

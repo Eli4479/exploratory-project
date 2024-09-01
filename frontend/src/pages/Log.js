@@ -20,14 +20,11 @@ export default function Log() {
     });
     console.log(bodyContent);
 
-    let response = await fetch(
-      "https://explo-backend.onrender.com/api/login/admin",
-      {
-        method: "POST",
-        body: bodyContent,
-        headers: headersList,
-      }
-    );
+    let response = await fetch("http://localhost:3000/api/login/admin", {
+      method: "POST",
+      body: bodyContent,
+      headers: headersList,
+    });
 
     let data = await response.text();
     if (response.status === 200) {

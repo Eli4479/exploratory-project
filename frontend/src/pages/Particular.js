@@ -23,7 +23,7 @@ export default function Particular() {
 
     console.log(token1);
     let response = await fetch(
-      "https://explo-backend.onrender.com/api/admin/course/user/" + token1,
+      "http://localhost:3000/api/admin/course/user/" + token1,
       {
         method: "POST",
         body: bodyContent,

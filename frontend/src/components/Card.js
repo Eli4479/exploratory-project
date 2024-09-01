@@ -17,7 +17,7 @@ const Card = () => {
         };
 
         let response = await fetch(
-          `https://explo-backend.onrender.com/api/admin/${token1}`,
+          `http://localhost:3000/api/admin/${token1}`,
           {
             method: "GET",
             headers: headersList,

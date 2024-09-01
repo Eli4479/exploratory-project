@@ -17,7 +17,7 @@ export default function User() {
       Image.type === "image/png" ||
       Image.type === "image/jpg"
     ) {
-      let url = "https://explo-backend.onrender.com/api/admin/course/";
+      let url = "http://localhost:3000/api/admin/course/";
       const course_token = localStorage.getItem("course_id");
       const token1 = course_token.replace(/['"]+/g, "");
       url = url + token1;

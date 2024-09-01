@@ -3,7 +3,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 export default function Registration() {
-  const url = "https://explo-backend.onrender.com/api/register/admin";
+  const url = "http://localhost:3000/api/register/admin";
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
@@ -22,14 +22,11 @@ export default function Registration() {
       password: password,
       confirm_password: confirmPassword,
     });
-    let response = await fetch(
-      "https://explo-backend.onrender.com/api/register/admin",
-      {
-        method: "POST",
-        body: bodyContent,
-        headers: headersList,
-      }
-    );
+    let response = await fetch("http://localhost:3000/api/register/admin", {
+      method: "POST",
+      body: bodyContent,
+      headers: headersList,
+    });
     let data = await response.text();
     console.log(data);
     console.log(response.status);

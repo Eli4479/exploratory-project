@@ -12,7 +12,7 @@ export default function Class_attendance() {
       "User-Agent": "Thunder Client (https://www.thunderclient.com)",
     };
     let response = await fetch(
-      `https://explo-backend.onrender.com/api/admin/course/users/${token1}`,
+      `http://localhost:3000/api/admin/course/users/${token1}`,
       {
         method: "GET",
         headers: headersList,
@@ -40,7 +40,7 @@ export default function Class_attendance() {
     let bodyContent = new FormData();
 
     let response = await fetch(
-      `https://explo-backend.onrender.com/api/admin/course/${token1}`,
+      `http://localhost:3000/api/admin/course/${token1}`,
       {
         method: "POST",
         body: bodyContent,

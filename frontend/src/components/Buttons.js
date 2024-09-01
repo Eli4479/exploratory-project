@@ -20,14 +20,11 @@ export default function Buttons() {
       course_name: Course_name,
     });
 
-    let response = await fetch(
-      `https://explo-backend.onrender.com/api/admin/${token1}`,
-      {
-        method: "PUT",
-        body: bodyContent,
-        headers: headersList,
-      }
-    );
+    let response = await fetch(`http://localhost:3000/api/admin/${token1}`, {
+      method: "PUT",
+      body: bodyContent,
+      headers: headersList,
+    });
 
     let data = await response.text();
     console.log(data);
