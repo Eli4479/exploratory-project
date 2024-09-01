@@ -1,11 +1,9 @@
 import React from "react";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 
-
-
 export default function Registration() {
-  const url = 'http://localhost:3000/api/register/admin';
+  const url = "https://explo-backend.onrender.com/api/register/admin";
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
@@ -14,21 +12,24 @@ export default function Registration() {
   const registeration = async (e) => {
     e.preventDefault();
     let headersList = {
-      "Accept": "*/*",
+      Accept: "*/*",
       "User-Agent": "Thunder Client (https://www.thunderclient.com)",
-      "Content-Type": "application/json"
-    }
+      "Content-Type": "application/json",
+    };
     let bodyContent = JSON.stringify({
-      "email": email,
-      "username": username,
-      "password": password,
-      "confirm_password": confirmPassword
+      email: email,
+      username: username,
+      password: password,
+      confirm_password: confirmPassword,
     });
-    let response = await fetch("http://localhost:3000/api/register/admin", {
-      method: "POST",
-      body: bodyContent,
-      headers: headersList
-    });
+    let response = await fetch(
+      "https://explo-backend.onrender.com/api/register/admin",
+      {
+        method: "POST",
+        body: bodyContent,
+        headers: headersList,
+      }
+    );
     let data = await response.text();
     console.log(data);
     console.log(response.status);
@@ -38,13 +39,10 @@ export default function Registration() {
       toast.success("Registration Successful");
       // redirect to login page
       window.location.href = "/login";
-
-    }
-    else {
+    } else {
       toast.dismiss();
       toast.error(data);
     }
-
   };
   return (
     <>
@@ -96,7 +94,6 @@ export default function Registration() {
                 onChange={(e) => {
                   setPassword(e.target.value);
                 }}
-
                 className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
               />
             </div>
@@ -116,9 +113,9 @@ export default function Registration() {
               />
             </div>
             <div className="mt-6 flex justify-center text-center">
-              <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600"
+              <button
+                className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600"
                 onClick={registeration}
-
               >
                 Register
               </button>
@@ -139,6 +136,5 @@ export default function Registration() {
       </div>
       <Toaster position="bottom-right" />
     </>
-
   );
 }

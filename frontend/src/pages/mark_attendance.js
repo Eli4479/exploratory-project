@@ -1,32 +1,34 @@
 import React from "react";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
-import "../components/components_css/button.css"
+import "../components/components_css/button.css";
 
 export default function Mark_attendance() {
-
   const [RollNumber, setRollNumber] = React.useState("");
 
   const mark_attendance = async (e) => {
     const course_token = localStorage.getItem("course_id");
-    const token1 = course_token.replace(/['"]+/g, '');
+    const token1 = course_token.replace(/['"]+/g, "");
     toast.loading("Marking attendance...");
     e.preventDefault();
     let headersList = {
-      "Accept": "*/*",
+      Accept: "*/*",
       "User-Agent": "Thunder Client (https://www.thunderclient.com)",
-      "Content-Type": "application/json"
-    }
+      "Content-Type": "application/json",
+    };
 
     let bodyContent = JSON.stringify({
-      "roll_number": RollNumber
+      roll_number: RollNumber,
     });
 
-    let response = await fetch("http://localhost:3000/api/admin/course/user/" + token1, {
-      method: "PUT",
-      body: bodyContent,
-      headers: headersList
-    });
+    let response = await fetch(
+      "https://explo-backend.onrender.com/api/admin/course/user/" + token1,
+      {
+        method: "PUT",
+        body: bodyContent,
+        headers: headersList,
+      }
+    );
 
     let data = await response.text();
     console.log(data);
@@ -34,8 +36,7 @@ export default function Mark_attendance() {
       toast.dismiss();
       toast.success("Attendance marked successfully");
       window.location.href = "/class_attendance";
-    }
-    else {
+    } else {
       // delete above toast of loading and show error
       toast.dismiss();
       toast.error(data);
@@ -63,19 +64,20 @@ export default function Mark_attendance() {
             />
           </div>
           <div className="mt-6 flex justify-center text-center">
-            <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600"
+            <button
+              className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600"
               onClick={mark_attendance}
             >
               Mark student attendance
             </button>
           </div>
           <div className="mt-6 flex justify-center text-center">
-            <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600"
+            <button
+              className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600"
               onClick={(e) => {
                 e.preventDefault();
-                window.location.href = "/class_attendance"
-              }
-              }
+                window.location.href = "/class_attendance";
+              }}
             >
               Back
             </button>
@@ -84,5 +86,5 @@ export default function Mark_attendance() {
       </div>
       <Toaster position="bottom-right" />
     </div>
-  )
+  );
 }

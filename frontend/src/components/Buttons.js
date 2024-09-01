@@ -1,4 +1,4 @@
-import "./components_css/button.css"
+import "./components_css/button.css";
 import { Link } from "react-router-dom";
 import React from "react";
 
@@ -10,27 +10,30 @@ export default function Buttons() {
     const token = localStorage.getItem("token");
     const token1 = token.slice(1, token.length - 1);
     let headersList = {
-      "Accept": "*/*",
+      Accept: "*/*",
       "User-Agent": "Thunder Client (https://www.thunderclient.com)",
-      "Content-Type": "application/json"
-    }
+      "Content-Type": "application/json",
+    };
 
     let bodyContent = JSON.stringify({
-      "course_code": Course_code,
-      "course_name": Course_name
+      course_code: Course_code,
+      course_name: Course_name,
     });
 
-    let response = await fetch(`http://localhost:3000/api/admin/${token1}`, {
-      method: "PUT",
-      body: bodyContent,
-      headers: headersList
-    });
+    let response = await fetch(
+      `https://explo-backend.onrender.com/api/admin/${token1}`,
+      {
+        method: "PUT",
+        body: bodyContent,
+        headers: headersList,
+      }
+    );
 
     let data = await response.text();
     console.log(data);
     setShowModal(false);
     window.location.reload();
-  }
+  };
   return (
     <div className="flex w-full justify-evenly ">
       <>
@@ -54,7 +57,9 @@ export default function Buttons() {
                       </label>
                       <input
                         type="text"
-                        onChange={(e) => { setCourse_code(e.target.value) }}
+                        onChange={(e) => {
+                          setCourse_code(e.target.value);
+                        }}
                         className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
                       />
                     </div>
@@ -67,7 +72,9 @@ export default function Buttons() {
                       </label>
                       <input
                         type="text"
-                        onChange={(e) => { setCourse_name(e.target.value); }}
+                        onChange={(e) => {
+                          setCourse_name(e.target.value);
+                        }}
                         className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
                       />
                     </div>
@@ -87,7 +94,9 @@ export default function Buttons() {
             <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
           </>
         ) : null}
-        <button className="btnn" onClick={() => setShowModal(true)}>add a course</button>
+        <button className="btnn" onClick={() => setShowModal(true)}>
+          add a course
+        </button>
       </>
     </div>
   );

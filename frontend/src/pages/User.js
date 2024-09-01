@@ -1,11 +1,8 @@
 import React from "react";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 
-
-
 export default function User() {
-
   const [username, setUsername] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [RollNumber, setRollNumber] = React.useState("");
@@ -15,15 +12,19 @@ export default function User() {
   const add_student = async (e) => {
     toast.loading("Adding user...");
     e.preventDefault();
-    if (Image.type === "image/jpeg" || Image.type === "image/png" || Image.type === "image/jpg") {
-      let url = 'http://localhost:3000/api/admin/course/';
+    if (
+      Image.type === "image/jpeg" ||
+      Image.type === "image/png" ||
+      Image.type === "image/jpg"
+    ) {
+      let url = "https://explo-backend.onrender.com/api/admin/course/";
       const course_token = localStorage.getItem("course_id");
-      const token1 = course_token.replace(/['"]+/g, '');
+      const token1 = course_token.replace(/['"]+/g, "");
       url = url + token1;
       let headersList = {
-        "Accept": "*/*",
-        "User-Agent": "Thunder Client (https://www.thunderclient.com)"
-      }
+        Accept: "*/*",
+        "User-Agent": "Thunder Client (https://www.thunderclient.com)",
+      };
 
       let bodyContent = new FormData();
       bodyContent.append("name", username);
@@ -34,7 +35,7 @@ export default function User() {
       let response = await fetch(url, {
         method: "PUT",
         body: bodyContent,
-        headers: headersList
+        headers: headersList,
       });
 
       let data = await response.text();
@@ -43,15 +44,12 @@ export default function User() {
         toast.dismiss();
         toast.success("User added successfully");
         window.location.href = "/class_attendance";
-      }
-      else {
+      } else {
         // delete above toast of loading and show error
         toast.dismiss();
         toast.error(data);
       }
-
-    }
-    else {
+    } else {
       toast.error("Please upload a valid image file");
       return;
     }
@@ -106,7 +104,6 @@ export default function User() {
                 onChange={(e) => {
                   setRollNumber(e.target.value);
                 }}
-
                 className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
               />
             </div>
@@ -122,23 +119,23 @@ export default function User() {
                 onChange={(e) => {
                   setImage(e.target.files[0]);
                 }}
-              >
-              </input>
+              ></input>
             </div>
             <div className="mt-6 flex justify-center text-center">
-              <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600"
+              <button
+                className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600"
                 onClick={add_student}
               >
                 Add student
               </button>
             </div>
             <div className="mt-6 flex justify-center text-center">
-              <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600"
+              <button
+                className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600"
                 onClick={(e) => {
                   e.preventDefault();
-                  window.location.href = "/class_attendance"
-                }
-                }
+                  window.location.href = "/class_attendance";
+                }}
               >
                 Back
               </button>
@@ -148,6 +145,5 @@ export default function User() {
       </div>
       <Toaster position="bottom-right" />
     </>
-
   );
 }
