@@ -11,9 +11,9 @@ export default function Error() {
         <div class="contant_box_404">
           <h3 class="h2">Looks like you're lost!</h3>
           <p>The page you are looking for is not available!</p>
-          {/* <Link to="/#"> */}
-          <button class="link_404">Go to Home</button>
-          {/* </Link> */}
+          <Link to="/">
+            <button class="link_404">Go to Home</button>
+          </Link>
         </div>
       </div>
     </section>

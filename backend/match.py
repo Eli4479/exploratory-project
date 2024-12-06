@@ -50,23 +50,18 @@ def capture_photo(auto_capture_delay=2):
     # Save the captured image
     photo_filename = 'captured_photo.jpg'
     cv2.imwrite(photo_filename, frame)
-    print(f"Photo captured and saved as '{photo_filename}'")
-
     return photo_filename
 
 def match_faces(reference_encoding, captured_photo_filename):
     # Load the saved captured photo
     captured_img = cv2.imread(captured_photo_filename)
     if captured_img is None:
-        print("Error loading captured image.")
         return False
-
     captured_img_rgb = cv2.cvtColor(captured_img, cv2.COLOR_BGR2RGB)
     captured_encodings = face_recognition.face_encodings(captured_img_rgb)
-
     if not captured_encodings:
         print("No face found in the captured image")
-        return False
+        sys.exit(1)
 
     captured_encoding = captured_encodings[0]
     results = face_recognition.compare_faces([reference_encoding], captured_encoding)
@@ -74,7 +69,6 @@ def match_faces(reference_encoding, captured_photo_filename):
 
 def main():
     if len(sys.argv) != 2:
-        print("Usage: python script.py <profile_pic_url>")
         sys.exit(1)
 
     profile_pic_url = sys.argv[1]
@@ -87,10 +81,7 @@ def main():
         sys.exit(1)
 
     result = match_faces(reference_encoding, captured_photo_filename)
-    if(result==False):
-        print("Fals")
-    else:
-        print(f"{result}")
+    print(f"{result}")
 
 if __name__ == "__main__":
     main()

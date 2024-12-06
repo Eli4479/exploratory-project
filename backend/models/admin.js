@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const user = require('./user');
-const course = require('./course');
+const user = require("./user");
+const course = require("./course");
 
 const adminSchema = new mongoose.Schema({
   username: {
@@ -18,13 +18,12 @@ const adminSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  course:
-    [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "course",
-      }
-    ],
+  course: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "course",
+    },
+  ],
   email: {
     type: String,
     required: true,
@@ -32,9 +31,12 @@ const adminSchema = new mongoose.Schema({
     trim: true,
     validate: {
       validator: function (v) {
-        return /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(v) && v.endsWith('itbhu.ac.in');
-      }
-    }
+        return (
+          /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(v) &&
+          v.endsWith("itbhu.ac.in")
+        );
+      },
+    },
   },
 });
 

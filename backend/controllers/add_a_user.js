@@ -20,6 +20,7 @@ const Storage = multer.diskStorage({
     cb(null, req.body.roll_number + ".jpg");
   },
 });
+
 const upload = multer({ storage: Storage }).single("testImage");
 
 const mongo_add_user = async (req, res, url, profile) => {

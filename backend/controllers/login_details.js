@@ -4,6 +4,7 @@ const Router = express.Router();
 const User = require("../models/user");
 const Course = require("../models/course");
 
+// gets all the courses in a user
 const login_details = async (req, res) => {
   try {
     const profile = await Admin.findById(req.params.id);

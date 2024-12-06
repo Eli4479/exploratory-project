@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import "../components/components_css/button.css";
 
 export default function Class_attendance() {
@@ -22,7 +21,6 @@ export default function Class_attendance() {
     let data = await response.text();
     let data1 = JSON.parse(data);
     setUser(data1);
-    // console.log(data1);
     console.log(typeof data1);
     console.log(User);
   };
@@ -47,8 +45,8 @@ export default function Class_attendance() {
         headers: headersList,
       }
     );
-
     let data = await response.text();
+    console.log(data);
     window.location.reload();
   };
   return (

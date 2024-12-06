@@ -1,9 +1,7 @@
 import React from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { Link } from "react-router-dom";
 
 export default function Registration() {
-  const url = "http://localhost:3000/api/register/admin";
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
